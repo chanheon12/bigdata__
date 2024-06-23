@@ -12,24 +12,34 @@ Created on Sun Jun 23 22:01:47 2024
     white_df.to_csv('C:/Users/kmj/MY_Python/7장_data/winequality-white2.csv',index = False)
     
     red_df.head()
+    
     red_df.insert(0, column = 'type', value = 'red')
     red_df.head()
+    
     red_df.shape
+    
     white_df.head()
+    
     white_df.insert(0, column = 'type', value = 'white')
     white_df.head()
+    
     white_df.shape
+    
     wine = pd.concat([red_df, white_df])
     wine.shape
-    wine.to_csv('C:/Users/kmj/MY_Python/7장_data/wine.csv', index = False)
     
+    wine.to_csv('C:/Users/kmj/MY_Python/7장_data/wine.csv', index = False)
     
     #데이터 탐색
     print(wine.info())
+    
     wine.columns = wine.columns.str.replace(' ','_')
     wine.head()
+    
     wine.describe()
+    
     sorted(wine.quality..unique())
+    
     wine.quality.value_counts()
 
     #데이터 모델링
@@ -44,6 +54,7 @@ Created on Sun Jun 23 22:01:47 2024
     red_wine_quality = wine.loc[wine['type'] == 'red', 'quality']
     white_wine_quality = white.loc[wine['type'] == 'white', 'quality']
     stats.ttest_ind(red_wine_quality, white_wine_quality, equal_var = False)
+    
     Rformula = 'quality ~ fixed_acidity + colatile_acidity + citric_acid + residual_sugar + chlorides + free_sulfur_dioxide + total_sulfur_dioxide + total_sulfur_doxide + density + pH + sulphates + alcoho'
     regression_result = ols(Rformula, data=wine).fit()
     regression_result.summary()
@@ -53,7 +64,9 @@ Created on Sun Jun 23 22:01:47 2024
     sample1 = sample1[0:5][:]
     sample1_predict = regression_result.predict(sample1)
     sample1_predict
+    
     wine[0:5]['quality']
+    
     sample2 = pd.DataFrame(data, columns=sample1.columns)
     sample2
     sample2_predict = regression_result.predict(sample2)
@@ -64,9 +77,13 @@ Created on Sun Jun 23 22:01:47 2024
     import seaborn as sns
     sns.set_style('dark')
     sns.distplot(red_wine_quality, kde = True, color ="red", label = 'red wine')
+    
     sns.distplot(white_wine_quality, kde = True, label = 'white wine')
+    
     plt.title("Quality of Wine Type")
+    
     plt.legend()
+    
     plt.show()
 
     import statsmodels.api as sm
@@ -75,6 +92,7 @@ Created on Sun Jun 23 22:01:47 2024
     plt.show()
     fig= plt.figure(figsize = (8, 13))
     sm.graphics.plot_partregress_grid(regression_result, fig = fig)
+    
     plt.show()
     
     #데이터 수집
